@@ -1,0 +1,10 @@
+# Ignore the entire .obsidian folder
+.obsidian/
+
+# Optional: Use these instead if you want to keep plugins/themes and only ignore workspace state
+# .obsidian/workspace.json
+# .obsidian/workspace-mobile.json
+
+# Ignore Obsidian trash and OS system files
+.trash/
+.DS_Store
