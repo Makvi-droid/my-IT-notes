@@ -40,3 +40,14 @@ Attackers discover these hidden URLs by checking `robots.txt` or brute-forcing p
 - **How it's exploited:** The attacker manually changes the parameter (e.g., changing `admin=false` to `admin=true` in Burp Suite or the browser) to escalate privileges.
 - Storing user roles in client-editable locations (cookies, hidden fields, URL parameters).
 - Users can inspect or intercept requests and change role values (e.g., `role=0` $\rightarrow$ `role=1`) to gain admin rights.
+
+---
+## **Horizontal privilege escalation**
+- **What it is:** Accessing resources or data belonging to **another user at the same permission level** (e.g., User A viewing User B's account).
+- **How it happens (IDOR):** The app uses a user-controlled parameter (like `?id=123`) to fetch data directly from the database without checking if the logged-in user actually owns that data.
+- **How attackers exploit it:**
+    - Changing predictable IDs in URLs/requests (e.g., changing `?id=123` to `?id=124`).
+    - **Unpredictable IDs (GUIDs):** Even if the app uses long random IDs instead of numbers, attackers can often find other users' GUIDs leaked elsewhere on the site (e.g., in public profiles, messages, or product reviews) and swap them in.
+- Staying at the same role level, but jumping sideways into another user's private data.
+- **Key Term — IDOR (Insecure Direct Object Reference):** When user input (like `id=123`) points directly to a database record with zero ownership verification.
+- **Bypassing GUIDs:** Random IDs stop simple guessing, _unless_ those GUIDs are exposed in public features (comments, posts, API responses) where an attacker can copy them.
